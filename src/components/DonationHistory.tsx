@@ -49,41 +49,64 @@ export default function DonationHistory({ donations, loading = false }: Donation
   }
 
   return (
-    <Card>
-      <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-        <Clock className="w-5 h-5 mr-2" />
+    <div className="bg-white/70 backdrop-blur-sm rounded-2xl border border-gray-100 shadow-sm p-6">
+      <h3 className="text-lg font-semibold text-gray-800 mb-6 flex items-center">
+        <Clock className="w-5 h-5 mr-2 text-gray-500" />
         {t('recentDonations')}
       </h3>
       
       <div className="space-y-4">
-        {donations.map((donation) => (
-          <div key={donation.id} className="border-b border-gray-100 pb-4 last:border-b-0">
+        {donations.map((donation, index) => (
+          <div 
+            key={donation.id} 
+            className="group hover:bg-gray-50/80 rounded-lg p-3 -m-3 transition-all duration-200 border-l-2 border-transparent hover:border-gray-400"
+          >
             <div className="flex items-start justify-between">
               <div className="flex-1">
-                <div className="flex items-center space-x-2 mb-1">
-                  <span className="text-sm font-medium text-gray-900">
+                <div className="flex items-center space-x-2 mb-2">
+                  <div className="w-8 h-8 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center">
+                    <span className="text-xs font-semibold text-gray-700">
+                      {donation.from.charAt(0).toUpperCase()}
+                    </span>
+                  </div>
+                  <span className="text-sm font-medium text-gray-800">
                     {donation.from}
+                  </span>
+                  <div className="w-1 h-1 bg-gray-300 rounded-full"></div>
+                  <span className="text-xs text-gray-500">
+                    {donation.time}
                   </span>
                 </div>
                 
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
-                  <span className="font-medium text-purple-600">
-                    ${donation.amount} {donation.currency}
-                  </span>
+                <div className="ml-10 space-y-1">
+                  <div className="flex items-center space-x-2">
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                      ${donation.amount} {donation.currency}
+                    </span>
+                  </div>
                   {donation.message && (
-                    <span>said: {donation.message}</span>
+                    <p className="text-sm text-gray-600 italic">
+                      "{donation.message}"
+                    </p>
                   )}
                 </div>
-              </div>
-              
-              <div className="flex items-center text-xs text-gray-400">
-                <Clock className="w-3 h-3 mr-1" />
-                {donation.time}
               </div>
             </div>
           </div>
         ))}
       </div>
-    </Card>
+      
+      {/* 實時捐款流動效果 */}
+      <div className="mt-6 pt-4 border-t border-gray-100">
+        <div className="flex items-center justify-center space-x-2 text-xs text-gray-400">
+          <div className="flex space-x-1">
+            <div className="w-1 h-1 bg-gray-400 rounded-full animate-bounce"></div>
+            <div className="w-1 h-1 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+            <div className="w-1 h-1 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+          </div>
+          <span>More donations coming in...</span>
+        </div>
+      </div>
+    </div>
   );
 } 

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Globe } from 'lucide-react';
+import { Globe, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 
 const languages = [
@@ -24,33 +24,38 @@ export default function LanguageSwitcher() {
     <div className="relative">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-200"
+        className="flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-white/90 backdrop-blur-sm border border-gray-200/70 hover:bg-white hover:border-gray-300 hover:shadow-sm transition-all duration-200"
       >
-        <Globe className="w-4 h-4" />
-        <span className="hidden sm:block">{currentLanguage?.flag}</span>
-        <span className="hidden md:block">{currentLanguage?.name}</span>
+        <Globe className="w-4 h-4 text-gray-600" />
+        <span className="text-sm font-medium text-gray-700">{currentLanguage?.flag}</span>
+        <span className="text-sm text-gray-600 hidden sm:block">{currentLanguage?.name}</span>
+        <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
       
       {isOpen && (
-        <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
-          <div className="py-2">
-            {languages.map((language) => {
-              const href = pathname.replace(`/${currentLocale}`, `/${language.code}`);
-              return (
-                <Link
-                  key={language.code}
-                  href={href}
-                  onClick={() => setIsOpen(false)}
-                  className={`flex items-center space-x-3 px-4 py-2 text-sm hover:bg-gray-50 transition-colors duration-150 ${
-                    currentLocale === language.code ? 'bg-purple-50 text-purple-700' : 'text-gray-700'
-                  }`}
-                >
-                  <span className="text-lg">{language.flag}</span>
-                  <span>{language.name}</span>
-                </Link>
-              );
-            })}
-          </div>
+        <div className="absolute top-full right-0 mt-3 w-56 bg-white/95 backdrop-blur-xl rounded-2xl shadow-xl border border-gray-200/50 py-3 z-50">
+          {languages.map((language) => {
+            const href = pathname.replace(`/${currentLocale}`, `/${language.code}`);
+            return (
+              <Link
+                key={language.code}
+                href={href}
+                onClick={() => setIsOpen(false)}
+                className={`flex items-center space-x-3 px-4 py-3 text-sm hover:bg-gray-50/80 transition-all duration-150 ${
+                  currentLocale === language.code ? 'bg-gray-100/80 text-gray-900 font-medium' : 'text-gray-700'
+                }`}
+              >
+                <span className="text-lg">{language.flag}</span>
+                <div className="flex flex-col">
+                  <span className="font-medium">{language.name}</span>
+                  <span className="text-xs text-gray-500">{language.code.toUpperCase()}</span>
+                </div>
+                {currentLocale === language.code && (
+                  <div className="ml-auto w-2 h-2 bg-gray-600 rounded-full"></div>
+                )}
+              </Link>
+            );
+          })}
         </div>
       )}
     </div>
