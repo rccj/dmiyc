@@ -2,10 +2,15 @@
 
 import Card from '@/components/ui/Card';
 import DonationHistory from '@/components/DonationHistory';
+import DonateModal from '@/components/DonateModal';
+import Button from '@/components/ui/Button';
 import { useTranslations } from '@/hooks/useTranslations';
+import { useState } from 'react';
+import { Heart, TrendingUp } from 'lucide-react';
 
 export default function Home() {
   const { t } = useTranslations();
+  const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
   
   // 測試數據
   const donations = [
@@ -34,7 +39,7 @@ export default function Home() {
         <div className="text-center py-16">
           {/* 震撼的金額顯示 */}
           <div className="mb-8">
-            <div className="text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 mb-4 tracking-tight">
+            <div className="text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 mb-4 tracking-tight hover:scale-105 transition-transform duration-500 cursor-default">
               $1,234.56
             </div>
             <div className="text-lg md:text-xl text-gray-500 font-medium tracking-wide">
@@ -47,9 +52,21 @@ export default function Home() {
             <h1 className="text-lg md:text-xl text-gray-600 mb-2 font-medium">
               {t('siteTitle')}
             </h1>
-            <p className="text-sm md:text-base text-gray-400 italic">
+            <p className="text-sm md:text-base text-gray-400 italic mb-8">
               {t('tagline')}
             </p>
+            
+            {/* 自然融入的捐款按鈕 */}
+            <div className="flex items-center justify-center">
+              <button
+                onClick={() => setIsDonateModalOpen(true)}
+                className="group inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-gray-800 to-gray-700 hover:from-gray-700 hover:to-gray-600 text-white rounded-2xl transition-all duration-300 hover:scale-105 active:scale-95 donate-button-pulse donate-button-glow"
+              >
+                <Heart className="w-4 h-4 text-red-400 group-hover:text-red-300 transition-colors" />
+                <span className="font-medium">Support</span>
+                <TrendingUp className="w-4 h-4 opacity-70 group-hover:opacity-100 transition-opacity" />
+              </button>
+            </div>
           </div>
 
           {/* 實時更新指示器 */}
@@ -85,7 +102,24 @@ export default function Home() {
         <div className="max-w-2xl mx-auto">
           <DonationHistory donations={donations} />
         </div>
+
+        {/* 浮動捐款按鈕 - 在較小螢幕上顯示 */}
+        <div className="fixed bottom-6 right-6 md:hidden z-40">
+          <button
+            onClick={() => setIsDonateModalOpen(true)}
+            className="group w-14 h-14 bg-gradient-to-r from-gray-800 to-gray-700 hover:from-gray-700 hover:to-gray-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 active:scale-95 flex items-center justify-center donate-button-pulse donate-button-glow"
+          >
+            <Heart className="w-6 h-6 text-red-400 group-hover:text-red-300 transition-colors" />
+          </button>
+        </div>
       </div>
+
+      {/* 捐款彈窗 */}
+      <DonateModal
+        isOpen={isDonateModalOpen}
+        onClose={() => setIsDonateModalOpen(false)}
+        targetUsername="dmiyc"
+      />
     </div>
   );
 } 

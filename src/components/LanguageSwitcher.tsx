@@ -24,7 +24,7 @@ export default function LanguageSwitcher() {
     <div className="relative">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-white/90 backdrop-blur-sm border border-gray-200/70 hover:bg-white hover:border-gray-300 hover:shadow-sm transition-all duration-200"
+        className="flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-white/90 backdrop-blur-sm border border-gray-200/70 hover:bg-white hover:border-gray-300 hover:shadow-sm transition-all duration-200 active:scale-95"
       >
         <Globe className="w-4 h-4 text-gray-600" />
         <span className="text-sm font-medium text-gray-700">{currentLanguage?.flag}</span>
@@ -41,7 +41,7 @@ export default function LanguageSwitcher() {
                 key={language.code}
                 href={href}
                 onClick={() => setIsOpen(false)}
-                className={`flex items-center space-x-3 px-4 py-3 text-sm hover:bg-gray-50/80 transition-all duration-150 ${
+                className={`flex items-center space-x-3 px-4 py-3 text-sm hover:bg-gray-50/80 transition-all duration-150 active:scale-95 ${
                   currentLocale === language.code ? 'bg-gray-100/80 text-gray-900 font-medium' : 'text-gray-700'
                 }`}
               >

@@ -59,12 +59,12 @@ export default function DonationHistory({ donations, loading = false }: Donation
         {donations.map((donation, index) => (
           <div 
             key={donation.id} 
-            className="group hover:bg-gray-50/80 rounded-lg p-3 -m-3 transition-all duration-200 border-l-2 border-transparent hover:border-gray-400"
+            className="group hover:bg-gray-50/80 rounded-lg p-3 -m-3 transition-all duration-200 border-l-2 border-transparent hover:border-gray-400 cursor-pointer active:scale-95"
           >
             <div className="flex items-start justify-between">
               <div className="flex-1">
                 <div className="flex items-center space-x-2 mb-2">
-                  <div className="w-8 h-8 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
                     <span className="text-xs font-semibold text-gray-700">
                       {donation.from.charAt(0).toUpperCase()}
                     </span>
@@ -80,7 +80,7 @@ export default function DonationHistory({ donations, loading = false }: Donation
                 
                 <div className="ml-10 space-y-1">
                   <div className="flex items-center space-x-2">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 group-hover:bg-gray-200 transition-colors duration-200">
                       ${donation.amount} {donation.currency}
                     </span>
                   </div>

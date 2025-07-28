@@ -29,7 +29,7 @@
 
 body {
   background: var(--background);
-  color: var(--foreground);
+  /* color: var(--foreground); */
   font-family: var(--font-sans);
   font-weight: 400;
   line-height: 1.6;
@@ -79,4 +79,87 @@ body {
 /* 暫停流動動畫 */
 .animate-marquee:hover {
   animation-play-state: paused;
+}
+
+/* 按鈕微妙呼吸動畫 */
+@keyframes gentle-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(75, 85, 99, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(75, 85, 99, 0);
+  }
+}
+
+.donate-button-pulse {
+  animation: gentle-pulse 3s infinite;
+}
+
+/* 懸停時的光暈效果 */
+.donate-button-glow:hover {
+  box-shadow: 0 0 20px rgba(75, 85, 99, 0.3), 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* 模態框進入動畫 */
+@keyframes modal-enter {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-enter {
+  animation: modal-enter 0.2s ease-out;
+}
+
+/* 背景淡入動畫 */
+@keyframes backdrop-enter {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.backdrop-enter {
+  animation: backdrop-enter 0.15s ease-out;
+}
+
+/* 金額數字滾動效果 */
+@keyframes number-pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.number-pop {
+  animation: number-pop 0.3s ease-out;
+}
+
+/* 選擇按鈕點擊效果 */
+@keyframes button-click {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.button-click {
+  animation: button-click 0.15s ease-out;
 }
